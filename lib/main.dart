@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:knaw_news/mixin/data.dart';
 import 'package:knaw_news/theme/light_theme.dart';
-import 'package:knaw_news/view/screens/auth/auth_screen.dart';
 import 'package:knaw_news/view/screens/inbox/inbox.dart';
 import 'package:knaw_news/view/screens/splash/splash_screen.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -15,7 +14,6 @@ void main() async{
   await AppData.initiate();
   await OneSignal.shared.setAppId("e4d5b9b9-1f98-4c75-9544-3b3baf5d395c");
   OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-     // Will be called whenever a notification is opened/button pressed.
     AppData().isAuthenticated?Get.to(InboxScreen()):null;
   });
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
