@@ -52,7 +52,6 @@ class _PostScreenState extends State<PostScreen> {
   bool isActive=false;
   bool isLocation=false;
   bool isEventIndefinit=false;
-  bool isEvent=false;
   String? postPicture;
   PickedFile _pickedFile=PickedFile("");
   File? file;
@@ -135,8 +134,8 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      drawer: new MyDrawer(),
-      appBar: new CustomAppBar(leading: Images.arrow_back,title: AppData().language!.post,suffix: Images.filter,isSuffix: false,isBack: true,isTitle: true,),
+      drawer: MyDrawer(),
+      appBar: CustomAppBar(leading: Images.arrow_back,title: AppData().language!.post,suffix: Images.filter,isSuffix: false,isBack: true,isTitle: true,),
       body: SafeArea(child: InkWell(
         hoverColor: Color(0xFFF8F8FA),
         splashColor: Color(0xFFF8F8FA),
@@ -300,89 +299,167 @@ class _PostScreenState extends State<PostScreen> {
                           CategoryItem(title: AppData().language!.events, icon: Images.event,isSelected: category==1?true:false,
                             onTap: (){
                             setState(() {
-                              isEvent=true;
-                              category=1;
-                              post.category="Events";
+                              if(category==1){
+                                category=0;
+                                post.category=null;
+                              }
+                              else{
+                                category=1;
+                                post.category="Events";
+                              }
                             });
                           },),
+                          SizedBox(width: 5,),
+                          CategoryItem(title: AppData().language!.local, icon: Images.local_news,isSelected: category==10?true:false,
+                            onTap: (){
+                              setState(() {
+                                if(category==10){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=10;
+                                  post.category="Local";
+                                }
+                              });
+                            },),
+                          SizedBox(width: 5,),
+                          CategoryItem(title: AppData().language!.national, icon: Images.my_local_news,isSelected: category==11?true:false,
+                            onTap: (){
+                              setState(() {
+                                if(category==11){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=11;
+                                  post.category="National";
+                                }
+                              });
+                            },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.business, icon: Images.bussiness,isSelected: category==2?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=2;
-                                post.category="Business";
+                                if(category==2){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=2;
+                                  post.category="Business";
+                                }
+
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.opinion, icon: Images.opinion,isSelected: category==3?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=3;
-                                post.category="Opinion";
+                                if(category==3){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=3;
+                                  post.category="Opinion";
+                                }
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.technology, icon: Images.technology,isSelected: category==4?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=4;
-                                post.category="Technology";
+                                if(category==4){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=4;
+                                  post.category="Technology";
+                                }
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.entertainment, icon: Images.entertainment,isSelected: category==5?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=5;
-                                post.category="Entertainment";
+                                if(category==5){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=5;
+                                  post.category="Entertainment";
+                                }
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.sports, icon: Images.sport,isSelected: category==6?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=6;
-                                post.category="Sports";
+                                if(category==6){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=6;
+                                  post.category="Sports";
+                                }
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.beauty, icon: Images.beauty,isSelected: category==7?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=7;
-                                post.category="Beauty";
+                                if(category==7){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=7;
+                                  post.category="Beauty";
+                                }
+
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.science, icon: Images.science,isSelected: category==8?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=8;
-                                post.category="Science";
+                                if(category==8){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=8;
+                                  post.category="Science";
+                                }
+
                               });
                             },),
                           SizedBox(width: 5,),
                           CategoryItem(title: AppData().language!.health, icon: Images.health,isSelected: category==9?true:false,
                             onTap: (){
                               setState(() {
-                                isEvent=false;
-                                category=9;
-                                post.category="Health";
+                                if(category==9){
+                                  category=0;
+                                  post.category=null;
+                                }
+                                else{
+                                  category=9;
+                                  post.category="Health";
+                                }
                               });
                             },),
+                          SizedBox(width: 5,),
+
 
                         ],
                       ),
                     ),
                   ),
-                  isEvent?Column(
+                  category==1?Column(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width*0.9,
@@ -697,14 +774,17 @@ class _PostScreenState extends State<PostScreen> {
                             inactiveColor: Theme.of(context).disabledColor.withOpacity(0.5),
                             activeColor: Colors.black,
                             onToggle: (v) {
-                              //if(isActive)linkController.clear(); post.externalLink="";
-                              setState(() {
+                              if(post.category!="Local"){
                                 isLocation=v;
                                 if(isLocation)
                                   addressController.clear();
                                 else
                                   addressController.text=post.country!;
+                              }
+                              setState(() {
+
                               });
+                              //if(isActive)linkController.clear(); post.externalLink="";
                             },
                           ),
                         ),
@@ -802,12 +882,11 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   Future<void> postNews() async {
-    print(post.toJson());
     if(post.country!.isEmpty){
       //showCustomSnackBar("Choose Location");
       return;
     }
-    if(isEvent&&!isEventIndefinit&&(eventStartDate.text.isEmpty||eventEndDate.text.isEmpty)){
+    if(category==1&&!isEventIndefinit&&(eventStartDate.text.isEmpty||eventEndDate.text.isEmpty)){
       print("here");
       //showCustomSnackBar("Select Event start and end date");
       return;
@@ -826,8 +905,8 @@ class _PostScreenState extends State<PostScreen> {
       "longitude": post.longitude,
       "latitude": post.latitude,
       if(post.postPicture!=null)"postPicture": post.postPicture,
-      if(isEvent&&!isEventIndefinit)"eventNewsStartDate" : post.eventNewsStartDate,
-      if(isEvent&&!isEventIndefinit)"eventNewsEndDate" : post.eventNewsEndDate
+      if(category==1&&!isEventIndefinit)"eventNewsStartDate" : post.eventNewsStartDate,
+      if(category==1&&!isEventIndefinit)"eventNewsEndDate" : post.eventNewsEndDate
     });
     if(response['status']=='success'){
       print("1---------------success response-----------");

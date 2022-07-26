@@ -6,17 +6,14 @@ import 'package:knaw_news/services/dio_service.dart';
 import 'package:knaw_news/util/dimensions.dart';
 import 'package:knaw_news/util/images.dart';
 import 'package:knaw_news/util/styles.dart';
-import 'package:knaw_news/view/base/custom_snackbar.dart';
 import 'package:knaw_news/view/base/loading_dialog.dart';
 import 'package:knaw_news/view/base/no_data_screen.dart';
-import 'package:knaw_news/view/screens/dashboard/dashboard_screen.dart';
 import 'package:knaw_news/view/screens/home/home.dart';
 import 'package:knaw_news/view/screens/inbox/widget/friend_widget.dart';
 import 'package:knaw_news/view/screens/menu/app_bar.dart';
 import 'package:knaw_news/view/screens/menu/drawer.dart';
 import 'package:knaw_news/view/screens/dashboard/widget/bottom_nav_item.dart';
 import 'package:knaw_news/view/screens/post/create_post_screen.dart';
-import 'package:knaw_news/view/screens/profile/follow_profile.dart';
 import 'package:knaw_news/view/screens/profile/profile_screen.dart';
 import 'package:knaw_news/view/screens/search/search_screen.dart';
 
@@ -43,8 +40,8 @@ class _InboxScreenState extends State<InboxScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new MyDrawer(),
-      appBar: new CustomAppBar(leading: Images.menu,title: AppData().language!.inbox,isTitle: true,isSuffix: false,),
+      drawer: MyDrawer(),
+      appBar: CustomAppBar(leading: Images.menu,title: AppData().language!.inbox,isTitle: true,isSuffix: false,),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         child: BottomAppBar(

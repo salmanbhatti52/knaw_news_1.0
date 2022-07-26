@@ -53,161 +53,210 @@ class _FullTransitionState extends State<FullTransition> {
   }
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width*0.9,
-          margin: EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // User Detail
-              UserInfo(postDetail: widget.postDetail,),
-              // Post Title
-              Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01,),
-                width: MediaQuery.of(context).size.width*0.9,
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    Wrap(
-                        children:[
-                          Text(widget.postDetail!.title??'',maxLines:2,style: openSansSemiBold.copyWith(fontSize:Dimensions.fontSizeDefault,color:Colors.black),),
-                          //postDetail!.description!.length<100?postDetail!.description!+"\n":
-                        ]),
-                  ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Wrap(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width*0.9,
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// User Detail
+                UserInfo(postDetail: widget.postDetail,),
+                /// Post Title
+                Container(
+                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01,),
+                  width: MediaQuery.of(context).size.width*0.9,
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      Wrap(
+                          children:[
+                            Text(widget.postDetail!.title??'',maxLines:2,style: openSansSemiBold.copyWith(fontSize:Dimensions.fontSizeDefault,color:Colors.black),),
+                            //postDetail!.description!.length<100?postDetail!.description!+"\n":
+                          ]),
+                    ],
+                  ),
                 ),
-              ),
-              // post Date
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(widget.postDetail!.category=='Events'&&widget.postDetail!.eventNewsStartDate!=null&&widget.postDetail!.eventNewsEndDate!=null?widget.postDetail!.eventNewsStartDate!+" "+widget.postDetail!.eventNewsEndDate!:widget.postDetail!.createdAt??'',style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeSmall,color:Colors.grey),),
-              ),
+                /// post Date
 
-              // News Description
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Stack(
-                  children: [
-                    Text(
-                      widget.postDetail!.description!,
-                      maxLines: isReadMore?100:3,
-                      style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeSmall,color: Colors.black,overflow: TextOverflow.fade),
-                    ),
-                    isReadMore?SizedBox():
-                    Positioned(
-                      bottom: 0,right: 0,
-                        child: Container(
-                          width: 100,
-                          color: Colors.white,
-                          child: InkWell(
-                              onTap: (){
-                                isReadMore=true;
-                                widget.postDetail!.isViewed!?null:viewPost();
-                                setState(() {
-                                });
-                              },
-                              child: Text(".....(${AppData().language!.readMore})",style: openSansBold.copyWith(fontSize: Dimensions.fontSizeSmall,color: Colors.amber))
-                          ),
-                        )
-                    ),
-                  ],
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 8.0),
+                //   child: Text(widget.postDetail!.category=='Events'&&widget.postDetail!.eventNewsStartDate!=null&&widget.postDetail!.eventNewsEndDate!=null?widget.postDetail!.eventNewsStartDate!+" "+widget.postDetail!.eventNewsEndDate!:widget.postDetail!.createdAt??'',style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeSmall,color:Colors.grey),),
+                // ),
+
+                /// News Description
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Stack(
+                    children: [
+                      Text(
+                        widget.postDetail!.description!,
+                        maxLines: isReadMore?100:3,
+                        style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeSmall,color: Colors.black,overflow: TextOverflow.fade),
+                      ),
+                      isReadMore?SizedBox():
+                      Positioned(
+                        bottom: 0,right: 0,
+                          child: Container(
+                            width: 100,
+                            color: Colors.white,
+                            child: InkWell(
+                                onTap: (){
+                                  isReadMore=true;
+                                  widget.postDetail!.isViewed!?null:viewPost();
+                                  setState(() {
+                                  });
+                                },
+                                child: Text(".....(${AppData().language!.readMore})",style: openSansBold.copyWith(fontSize: Dimensions.fontSizeSmall,color: Colors.amber))
+                            ),
+                          )
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // CustomImage(
-              //   image: Images.placeholder,
-              //   height: MediaQuery.of(context).size.height*0.25,
-              //   width: MediaQuery.of(context).size.width*0.9,
-              //   fit: BoxFit.cover,
-              // ),
+                // CustomImage(
+                //   image: Images.placeholder,
+                //   height: MediaQuery.of(context).size.height*0.25,
+                //   width: MediaQuery.of(context).size.width*0.9,
+                //   fit: BoxFit.cover,
+                // ),
 
-              //Post Image
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                child: ClipRRect(
-                  child: widget.postDetail!.postPicture == null || widget.postDetail!.postPicture == "" ? SizedBox():
-                  GestureDetector(
-                    onTap: () => Get.to(ImageView(image: widget.postDetail!.postPicture,)),
-                    child: Image.network(
-                      widget.postDetail!.postPicture??'',
-                      height: MediaQuery.of(context).size.height*0.25, width: MediaQuery.of(context).size.width*0.9,fit: BoxFit.cover,
+                ///Post Image
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: ClipRRect(
+                    child: widget.postDetail!.postPicture == null || widget.postDetail!.postPicture == "" ? SizedBox():
+                    GestureDetector(
+                      onTap: () => Get.to(ImageView(image: widget.postDetail!.postPicture,)),
+                      child: Image.network(
+                        widget.postDetail!.postPicture??'',
+                        height: MediaQuery.of(context).size.height*0.25, width: MediaQuery.of(context).size.width*0.9,fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Action Bar
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Row(
-                  children: [
-                    VerticalTile(icon: widget.postDetail!.category=="Opinion"?widget.postDetail!.isHappyReacted!?Images.like:Images.like_bold:widget.postDetail!.isHappyReacted!?Images.smile_face:Images.smile_face_bold, title: widget.postDetail!.happyReactions.toString(),isBlack: true,onTap: widget.postDetail!.category=="Opinion"?likeOpinion:happyReact,),
-                    Expanded(child: Container()),
-                    VerticalTile(icon: widget.postDetail!.category=="Opinion"?widget.postDetail!.isSadReacted!?Images.dislike:Images.dislike_bold:widget.postDetail!.isSadReacted!?Images.sad_face:Images.sad_face_bold, title: widget.postDetail!.sadReactions.toString(),isBlack: true,onTap: widget.postDetail!.category=="Opinion"?dislikeOpinion:sadReact,),
-                    Expanded(child: Container()),
-                    VerticalTile(icon: widget.postDetail!.isBookmarked=="true"?Images.bookmark_bold:Images.bookmark, title: AppData().language!.bookmarks,onTap: bookmarkPost,),
-                    Expanded(child: Container()),
-                    VerticalTile(icon: Images.comment, title: widget.postDetail!.totalComments.toString(),isBlack: true,onTap: (){
-                      //Get.bottomSheet(CommentScreen(postDetail: widget.postDetail,));
-                      isComment=!isComment;
-                      setState(() {
 
-                      });
-                    }),
-                    Expanded(child: Container()),
-                    widget.postDetail!.externalLink!.isURL?VerticalTile(icon: Images.link, title: AppData().language!.source,onTap: () => _launchURL(widget.postDetail!.externalLink!.contains("http")?widget.postDetail!.externalLink!:"http://${widget.postDetail!.externalLink!}"),):SizedBox(),
-                    widget.postDetail!.externalLink!.isURL?Expanded(child: Container()):SizedBox(),
-                    VerticalTile(icon: Images.share, title: AppData().language!.share,onTap: () async {
-                      int length=widget.postDetail!.description!.length;
-                        String url = widget.postDetail!.postPicture!;
-                        final _url = Uri.parse(url);
-                        final response = await http.get(_url);
-                        final bytes = response.bodyBytes;
-                        final temp = await getTemporaryDirectory();
-                        final path = '${temp.path}/image.jpg';
-                        File(path).writeAsBytesSync(bytes);
-                      // Share.share(
-                      //     "Title: "+ widget.postDetail!.title!+"\n"+
-                      //         "Summary: "+widget.postDetail!.description!.substring(0,length>100?100:length>50?50:length>20?20:length)+
-                      //         '\nClick to read more https://play.google.com/store/apps/details?id=com.knawnews.apps&hl=en&gl=US');
-                      await Share.shareFiles([path],text: "Title: "+ widget.postDetail!.title!+"\n"+
-                                  "Summary: "+widget.postDetail!.description!.substring(0,length>100?100:length>50?50:length>20?20:length)+
-                          "\nClick to read more https://knawnews.com/"
-                      );
-                    }),
-                    Expanded(child: Container()),
-                    PopupMenuButton(
-                        child: Center(
-                            child:  Icon(Icons.more_vert,size:20,color: Colors.grey.withOpacity(0.5),)
-                        ),
-                        onSelected: (value){
+                /// Action Bar
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
+                    children: [
+                      VerticalTile(icon: widget.postDetail!.category=="Opinion"?widget.postDetail!.isHappyReacted!?Images.like:Images.like_bold:widget.postDetail!.isHappyReacted!?Images.smile_face:Images.smile_face_bold, title: widget.postDetail!.happyReactions.toString(),isBlack: true,onTap: widget.postDetail!.category=="Opinion"?likeOpinion:happyReact,),
+                      Expanded(child: Container()),
+                      VerticalTile(icon: widget.postDetail!.category=="Opinion"?widget.postDetail!.isSadReacted!?Images.dislike:Images.dislike_bold:widget.postDetail!.isSadReacted!?Images.sad_face:Images.sad_face_bold, title: widget.postDetail!.sadReactions.toString(),isBlack: true,onTap: widget.postDetail!.category=="Opinion"?dislikeOpinion:sadReact,),
+                      Expanded(child: Container()),
+                      VerticalTile(icon: widget.postDetail!.isBookmarked=="true"?Images.bookmark_bold:Images.bookmark, title: "",onTap: bookmarkPost,),
+                      Expanded(child: Container()),
+                      VerticalTile(icon: Images.comment, title: widget.postDetail!.totalComments.toString(),isBlack: true,onTap: (){
+                        //Get.bottomSheet(CommentScreen(postDetail: widget.postDetail,));
+                        isComment=!isComment;
+                        setState(() {
 
-                        },
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-
-                            padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 8),
-                            height:20,
-                            child: InkWell(
-                              onTap: () => Get.dialog(ReportDialog(postDetail: widget.postDetail)),
-                              child: Text(AppData().language!.reportThread,
-                                style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeDefault),),
-                            ),
+                        });
+                      }),
+                      // Expanded(child: Container()),
+                      // widget.postDetail!.externalLink!.isURL?VerticalTile(icon: Images.link, title: AppData().language!.source,onTap: () => _launchURL(widget.postDetail!.externalLink!.contains("http")?widget.postDetail!.externalLink!:"http://${widget.postDetail!.externalLink!}"),):SizedBox(),
+                      // widget.postDetail!.externalLink!.isURL?Expanded(child: Container()):SizedBox(),
+                      // VerticalTile(icon: Images.share, title: AppData().language!.share,onTap: () async {
+                      //   int length=widget.postDetail!.description!.length;
+                      //     String url = widget.postDetail!.postPicture!;
+                      //     final _url = Uri.parse(url);
+                      //     final response = await http.get(_url);
+                      //     final bytes = response.bodyBytes;
+                      //     final temp = await getTemporaryDirectory();
+                      //     final path = '${temp.path}/image.jpg';
+                      //     File(path).writeAsBytesSync(bytes);
+                      //   // Share.share(
+                      //   //     "Title: "+ widget.postDetail!.title!+"\n"+
+                      //   //         "Summary: "+widget.postDetail!.description!.substring(0,length>100?100:length>50?50:length>20?20:length)+
+                      //   //         '\nClick to read more https://play.google.com/store/apps/details?id=com.knawnews.apps&hl=en&gl=US');
+                      //   await Share.shareFiles([path],text: "Title: "+ widget.postDetail!.title!+"\n"+
+                      //               "Summary: "+widget.postDetail!.description!.substring(0,length>100?100:length>50?50:length>20?20:length)+
+                      //       "\nClick to read more https://knawnews.com/"
+                      //   );
+                      // }),
+                      Expanded(child: Container()),
+                      PopupMenuButton(
+                          child: Center(
+                              child:  Icon(Icons.more_vert,size:25,color: Colors.grey.withOpacity(0.5),)
                           ),
-                        ]
-                    ),
-                  ],
+                          onSelected: (value){
+
+                          },
+                          itemBuilder: (context) => [
+                            if(widget.postDetail!.externalLink!.isURL)
+                              PopupMenuItem(
+                              padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 8),
+                              height:20,
+                              child: InkWell(
+                              onTap: () => _launchURL(widget.postDetail!.externalLink!.contains("http")?widget.postDetail!.externalLink!:"http://${widget.postDetail!.externalLink!}"),
+                                child: Text(AppData().language!.source,
+                                  style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeDefault),),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 8),
+                              height:20,
+                              child: InkWell(
+                                onTap: () async {
+                                  int length = widget.postDetail!.description!
+                                      .length;
+                                  String url = widget.postDetail!.postPicture!;
+                                  final _url = Uri.parse(url);
+                                  final response = await http.get(_url);
+                                  final bytes = response.bodyBytes;
+                                  final temp = await getTemporaryDirectory();
+                                  final path = '${temp.path}/image.jpg';
+                                  File(path).writeAsBytesSync(bytes);
+                                  // Share.share(
+                                  //     "Title: "+ widget.postDetail!.title!+"\n"+
+                                  //         "Summary: "+widget.postDetail!.description!.substring(0,length>100?100:length>50?50:length>20?20:length)+
+                                  //         '\nClick to read more https://play.google.com/store/apps/details?id=com.knawnews.apps&hl=en&gl=US');
+                                  await Share.shareFiles([path],
+                                      text: "Title: " +
+                                          widget.postDetail!.title! + "\n" +
+                                          "Summary: " +
+                                          widget.postDetail!.description!
+                                              .substring(0,
+                                              length > 100 ? 100 : length > 50
+                                                  ? 50
+                                                  : length > 20 ? 20 : length) +
+                                          "\nClick to read more https://knawnews.com/"
+                                  );
+                                },
+                                child: Text(AppData().language!.share,
+                                  style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeDefault),),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              padding:const EdgeInsets.symmetric(vertical: 0,horizontal: 8),
+                              height:20,
+                              child: InkWell(
+                                onTap: () => Get.dialog(ReportDialog(postDetail: widget.postDetail)),
+                                child: Text(AppData().language!.reportThread,
+                                  style: openSansRegular.copyWith(fontSize: Dimensions.fontSizeDefault),),
+                              ),
+                            ),
+
+                          ]
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        // Comments on post
-        isComment?Container(child: CommentScreen(postDetail: widget.postDetail,)):SizedBox()
-      ],
+          // Comments on post
+          isComment?Container(child: CommentScreen(postDetail: widget.postDetail,)):SizedBox()
+        ],
+      ),
     );
   }
   void translate() async {

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:knaw_news/model/signup_model.dart';
-import 'package:knaw_news/view/base/custom_snackbar.dart';
 
 class Auth{
 

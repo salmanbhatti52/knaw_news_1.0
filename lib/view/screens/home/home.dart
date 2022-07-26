@@ -12,7 +12,6 @@ import 'package:knaw_news/util/app_constants.dart';
 import 'package:knaw_news/util/dimensions.dart';
 import 'package:knaw_news/util/images.dart';
 import 'package:knaw_news/util/styles.dart';
-import 'package:knaw_news/view/base/custom_snackbar.dart';
 import 'package:knaw_news/view/base/loading_dialog.dart';
 import 'package:knaw_news/view/base/no_data_screen.dart';
 import 'package:knaw_news/view/screens/dashboard/widget/bottom_nav_item.dart';
@@ -45,14 +44,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   String category="Most Popular";
   String offset="0";
   bool isLoading=true;
-  List<String> categoryList=["Most Popular","Happy","Sad","Your News Feed","Global News","Events","Business","Opinion","Technology", "Entertainment","Sports","Beauty","Science","Health",];
+  List<String> categoryList=["Most Popular","Happy","Sad","Your News Feed","Local","National","Global News","Events","Business","Opinion","Technology", "Entertainment","Sports","Beauty","Science","Health",];
   List<PostDetail>? postDetail;
   int totalPost=-1;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 14, initialIndex: 0, vsync: this,);
+    _tabController = TabController(length: 16, initialIndex: 0, vsync: this,);
     _tabController!.addListener(_handleTabSelection);
     scrollController.addListener(_handleScroll);
     getLocation();
@@ -122,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 color: Colors.white,
                 padding: EdgeInsets.only(bottom: 5),
                 child: DefaultTabController(
-                    length: 14,
+                    length: 16,
                     child: SizedBox(
                       height: 40,
                       //width: 200,
@@ -143,39 +142,43 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           CategoryItem(title: AppData().language!.trending, icon: Images.star,isSelected: selected==1?true:false,onTap: (){selected=1;category="Most Popular";setState(() {});loadOtherPosts();},),
                           CategoryItem(title: AppData().language!.happy, icon: Images.happy,isSelected: selected==2?true:false,onTap: (){selected=2;category="Happy";setState(() {});loadOtherPosts();},),
                           CategoryItem(title: AppData().language!.gloomy, icon: Images.sad,isSelected: selected==3?true:false,onTap: (){selected=3;category="Sad";setState(() {});loadOtherPosts();},),
-                          CategoryItem(title: AppData().language!.yourNewsFeed, icon: Images.local_news,isSelected: selected==4?true:false,onTap: (){selected=4;category="Your News Feed";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.globalNews, icon: Images.global_news,isSelected: selected==5?true:false,onTap: (){selected=5;category="Global News";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.events, icon: Images.event,isSelected: selected==6?true:false,onTap: (){selected=6;category="Events";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.business, icon: Images.bussiness,isSelected: selected==7?true:false,onTap: (){selected=7;category="Business";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.opinion, icon: Images.opinion,isSelected: selected==8?true:false,onTap: (){
-                            selected=8;
+                          CategoryItem(title: AppData().language!.yourNewsFeed, icon: Images.mynews,isSelected: selected==4?true:false,onTap: (){selected=4;category="Your News Feed";setState(() {});loadPosts();},),
+
+                          CategoryItem(title: AppData().language!.local, icon: Images.local_news,isSelected: selected==5?true:false,onTap: (){selected=5;category="Local";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.national, icon: Images.my_local_news,isSelected: selected==6?true:false,onTap: (){selected=6;category="National";setState(() {});loadPosts();},),
+
+                          CategoryItem(title: AppData().language!.globalNews, icon: Images.global_news,isSelected: selected==7?true:false,onTap: (){selected=7;category="Global News";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.events, icon: Images.event,isSelected: selected==8?true:false,onTap: (){selected=8;category="Events";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.business, icon: Images.bussiness,isSelected: selected==9?true:false,onTap: (){selected=9;category="Business";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.opinion, icon: Images.opinion,isSelected: selected==10?true:false,onTap: (){
+                            selected=10;
                             category="Opinion";
                             setState(() {});
                             loadPosts();
 
                           },),
-                          CategoryItem(title: AppData().language!.technology, icon: Images.technology,isSelected: selected==9?true:false,onTap: (){selected=9;category="Technology";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.entertainment, icon: Images.entertainment,isSelected: selected==10?true:false,onTap: (){selected=10;category="Entertainment";setState(() {});loadPosts();},),
-                          CategoryItem(title: AppData().language!.sports, icon: Images.sport,isSelected: selected==11?true:false,onTap: (){
-                            selected=11;
+                          CategoryItem(title: AppData().language!.technology, icon: Images.technology,isSelected: selected==11?true:false,onTap: (){selected=11;category="Technology";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.entertainment, icon: Images.entertainment,isSelected: selected==12?true:false,onTap: (){selected=12;category="Entertainment";setState(() {});loadPosts();},),
+                          CategoryItem(title: AppData().language!.sports, icon: Images.sport,isSelected: selected==13?true:false,onTap: (){
+                            selected=13;
                             category="Sports";
                             setState(() {});
                             loadPosts();
                           },),
-                          CategoryItem(title: AppData().language!.beauty, icon: Images.beauty,isSelected: selected==12?true:false,onTap: (){
-                            selected=12;
+                          CategoryItem(title: AppData().language!.beauty, icon: Images.beauty,isSelected: selected==14?true:false,onTap: (){
+                            selected=14;
                             category="Beauty";
                             setState(() {});
                             loadPosts();
                           },),
-                          CategoryItem(title: AppData().language!.science, icon: Images.science,isSelected: selected==13?true:false,onTap: (){
-                            selected=13;
+                          CategoryItem(title: AppData().language!.science, icon: Images.science,isSelected: selected==15?true:false,onTap: (){
+                            selected=15;
                             category="Science";
                             setState(() {});
                             loadPosts();
                           },),
-                          CategoryItem(title: AppData().language!.health, icon: Images.health,isSelected: selected==14?true:false,onTap: (){
-                            selected=14;
+                          CategoryItem(title: AppData().language!.health, icon: Images.health,isSelected: selected==16?true:false,onTap: (){
+                            selected=16;
                             category="Health";
                             setState(() {});
                             loadPosts();
@@ -193,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        for(int i=0;i<14;i++)
+                        for(int i=0;i<16;i++)
                           totalPost>0?Container(
                             width: MediaQuery.of(context).size.width*0.9,
                             child: ListView.builder(
@@ -231,7 +234,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       "usersId" : AppData().userdetail!.usersId,
       "offset": offset,
       "category": category,
-      "userCountry": AppData().userdetail!.country
+      "userCountry": AppData().userdetail!.country,
+      if(category=="Local")"userLat":AppData().userdetail!.latitude,
+      if(category=="Local")"userLong":AppData().userdetail!.longitude
     });
     if(response['status']=='success'){
       var jsonData= response['data'] as List;

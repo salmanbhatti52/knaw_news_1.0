@@ -10,6 +10,7 @@ import 'package:knaw_news/util/styles.dart';
 import 'package:knaw_news/view/base/custom_image.dart';
 import 'package:knaw_news/view/base/custom_snackbar.dart';
 import 'package:knaw_news/view/base/loading_dialog.dart';
+import 'package:knaw_news/view/screens/home/specific_post.dart';
 import 'package:knaw_news/view/screens/profile/follow_profile.dart';
 
 class FriendCard extends StatefulWidget {
@@ -23,13 +24,13 @@ class FriendCard extends StatefulWidget {
 class _FriendCardState extends State<FriendCard> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.to(() => FollowProfile(userId: widget.notificationDetail!.senderUsersId)),
-      child: Container(
-        child: ListTile(
-          leading: Stack(
-            children: [
-              ClipOval(
+    return Container(
+      child: ListTile(
+        leading: Stack(
+          children: [
+            GestureDetector(
+            onTap:() => Get.to(() => FollowProfile(userId: widget.notificationDetail!.senderUsersId)),
+              child: ClipOval(
                 child: widget.notificationDetail!.senderUserProfilePicture == null || widget.notificationDetail!.senderUserProfilePicture == "" ?
                 CustomImage(
                   image: Images.placeholder,
@@ -42,16 +43,19 @@ class _FriendCardState extends State<FriendCard> {
                   width: 40,height: 40,fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
-                bottom: 0, right: 0,
-                child: SvgPicture.asset(Images.badge,height: 12,width: 12,),
-              ),
-            ],
-          ),
-          title: Text(widget.notificationDetail!.senderUsername??'',style: openSansBold.copyWith(color: Colors.black,),),
-          subtitle: Text(widget.notificationDetail!.message!+"."+widget.notificationDetail!.daysAgo!,style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeSmall,color: textColor,),),
-          trailing: widget.notificationDetail!.notificationType!="Following"?
-          Container(
+            ),
+            Positioned(
+              bottom: 0, right: 0,
+              child: SvgPicture.asset(Images.badge,height: 12,width: 12,),
+            ),
+          ],
+        ),
+        title: Text(widget.notificationDetail!.senderUsername??'',style: openSansBold.copyWith(color: Colors.black,),),
+        subtitle: Text(widget.notificationDetail!.message!+"."+widget.notificationDetail!.daysAgo!,style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeSmall,color: textColor,),),
+        trailing: widget.notificationDetail!.notificationType!="Following"?
+        GestureDetector(
+          onTap: () => Get.to(() => SpecificPost(postId: widget.notificationDetail!.newsPostId!)),
+          child: Container(
             height: 70,
             width: 50,
             child: ClipRRect(
@@ -68,26 +72,26 @@ class _FriendCardState extends State<FriendCard> {
                 width: 40,height: 60,fit: BoxFit.cover,
               ),
             ),
-          ):
-          GestureDetector(
-            onTap: followUser,
-            child: Container(
-              height: 28,
-              width: 90,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: widget.notificationDetail!.isFollowingBack!?Colors.amber:Colors.black
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6.0,right: 3,bottom: 6.0),
-                    child: SvgPicture.asset(Images.user,color: Colors.white,),
-                  ),
-                  Text(widget.notificationDetail!.isFollowingBack!?AppData().language!.unfollow:AppData().language!.follow,style: openSansRegular.copyWith(color:Colors.white),)
-                ],),
+          ),
+        ):
+        GestureDetector(
+          onTap: followUser,
+          child: Container(
+            height: 28,
+            width: 90,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: widget.notificationDetail!.isFollowingBack!?Colors.amber:Colors.black
             ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 6.0,right: 3,bottom: 6.0),
+                  child: SvgPicture.asset(Images.user,color: Colors.white,),
+                ),
+                Text(widget.notificationDetail!.isFollowingBack!?AppData().language!.unfollow:AppData().language!.follow,style: openSansRegular.copyWith(color:Colors.white),)
+              ],),
           ),
         ),
       ),

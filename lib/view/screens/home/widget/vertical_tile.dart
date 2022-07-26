@@ -13,17 +13,15 @@ class VerticalTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Container(
-          child: Column(
-            children:[
-              SvgPicture.asset(icon,height: icon.contains("face")?14:12,width: icon.contains("face")?14:12,),
-              Text(title,style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeExtraSmall,color: isBlack?Colors.black:Colors.grey),),
-            ]
-          ),
+      child: Container(
+        child: Column(
+          children:[
+            //SvgPicture.asset(icon,height: icon.contains("face")?16:title.isNotEmpty?14:18,width: icon.contains("face")?16:title.isNotEmpty?14:18,),
+            SvgPicture.asset(icon,height: 16,width: 16),
+            Text(title,style: openSansRegular.copyWith(fontSize:Dimensions.fontSizeDefault,color: isBlack?Colors.black:Colors.grey),),
+          ]
         ),
       ),
     );
