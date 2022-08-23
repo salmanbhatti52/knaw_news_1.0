@@ -152,7 +152,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 SettingCard(icon: Images.setting, title: AppData().language!.accountSetting,onTap: () => Get.to(AccountSetting())),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
                     color: Theme.of(context).disabledColor.withOpacity(0.5),
                     width: MediaQuery.of(context).size.width*0.9,
@@ -161,7 +161,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 SettingCard(icon: Images.email_bold, title: AppData().language!.changeEmail,onTap: () => Get.to(ChangeEmail()),),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
                     color: Theme.of(context).disabledColor.withOpacity(0.5),
                     width: MediaQuery.of(context).size.width*0.9,
@@ -170,7 +170,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 SettingCard(icon: Images.lock_bold, title: AppData().language!.changeYourPassword,onTap: () => Get.to(ChangePassword())),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
                     color: Theme.of(context).disabledColor.withOpacity(0.5),
                     width: MediaQuery.of(context).size.width*0.9,
@@ -179,7 +179,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 SettingCard(icon: Images.mute, title: AppData().language!.mutedMembers,onTap: () => Get.to(MutedMember())),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
                     color: Theme.of(context).disabledColor.withOpacity(0.5),
                     width: MediaQuery.of(context).size.width*0.9,

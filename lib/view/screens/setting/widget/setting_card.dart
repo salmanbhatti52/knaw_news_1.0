@@ -13,6 +13,8 @@ class SettingCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 30,
+        color: Colors.transparent,
         child: Row(
           children: [
             SizedBox(width: 30,),

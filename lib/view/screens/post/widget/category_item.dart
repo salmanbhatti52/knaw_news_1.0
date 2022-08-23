@@ -32,8 +32,8 @@ class CategoryItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(icon,width: 20,),
-            SizedBox(width: 10,),
-            Text(title,style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall),),
+            // SizedBox(width: 10,),
+            // Text(title,style: openSansSemiBold.copyWith(color: Colors.black,fontSize: Dimensions.fontSizeSmall),),
           ],
         ),
       ),
